@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 
-//async function connectDB
+//async function connect mongo DB 
 
 const connectDB = async(uri) => {
 

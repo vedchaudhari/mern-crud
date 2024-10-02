@@ -56,8 +56,6 @@ const updateUserProfile = async (req, res) => {
         user.dateOfBirth = dateOfBirth || user.dateOfBirth;
         user.email = email || user.email;
 
-        //save user
-
         user = await user.save();
 
         //remove password in response

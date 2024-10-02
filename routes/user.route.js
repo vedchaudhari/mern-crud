@@ -6,7 +6,7 @@ const { getUserProfile,updateUserProfile } = require('../controllers/user.contro
 
 const router = express.Router();
 
-getUserProfile
+//getUserProfile
 router.get('/profile', authMiddleware, getUserProfile);
 
 //updateUser Profile

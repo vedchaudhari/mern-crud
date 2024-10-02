@@ -16,7 +16,7 @@ const signup = async (req, res) => {
             return res.status(400).json({ error: "User with this Email already exists" })
         }
 
-        //HASH PASSWORD HERE
+        //password hashing
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -32,7 +32,7 @@ const signup = async (req, res) => {
 
         if (newUser) {
 
-            //Generate JWT token here
+            //jwt token generation 
             generateTokenAndSetCookie(newUser._id, res);
             await newUser.save();
 
@@ -62,7 +62,8 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(req.body); // Log the request body
+        console.log(req.body); 
+
         const user = await User.findOne({ email });
         const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
 
@@ -93,7 +94,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        // Check if the middleware has attached the user to the req object
+        
         const userId = req.user?._id;
         if (!userId) {
             return res.status(400).json({ error: "User is not logged in" });
@@ -108,9 +109,9 @@ const logout = async (req, res) => {
 
         // Update the status to offline
         user.status = 'offline';
-        await user.save(); // Save the updated status
+        await user.save(); 
 
-        // Clear the authentication token (remove JWT cookie)
+        //remove cookie
         res.cookie("jwt", "", { maxAge: 0 });
 
         // Send the response
